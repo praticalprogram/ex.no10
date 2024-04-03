@@ -1,0 +1,19 @@
+create table salary_details(emp_no number(10), emp_name varchar2(50), emp_address varchar2(50), emp_salary number(10));
+insert into salary_details values(1, 'Ramya', 'chennai', 12000);
+insert into salary_details values(2, 'Ramesh', 'vellore', 10000);
+select * from salary_details;
+
+DECLARE
+CURSOR C IS
+SELECT * FROM salary_details;
+m salary_details%ROWTYPE;
+
+BEGIN
+OPEN C;
+LOOP
+FETCH C INTO m;
+EXIT WHEN C%NOTFOUND;
+UPDATE salary_details SET emp_salary = m.emp_salary + 1500 WHERE emp_no = m.emp_no;
+END LOOP;
+CLOSE C;
+END;
